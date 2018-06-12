@@ -12,6 +12,9 @@ $php_ext = "php|phtml"
 # Flag, if set to $true git will unstage all files with errors, set to $false to disable
 $unstage_on_error = $false;
 
+# ignore path
+$ignore = "database\*"
+
 ### FUNCTIONS ###
 
 
@@ -77,7 +80,7 @@ function php_cs_check {
             if ($file -match "test\/") {
                 write-host "SKIPPED! (test file)" -foregroundcolor "darkGreen" -backgroundcolor "black"
             } else {
-                $errors = & $php_cs --standard=PSR2 -n --colors --report-width=120 $file
+                $errors = & $php_cs --standard=PSR2 --ignore=$ignore -n --colors --report-width=120 $file
 
                 # Outputs the error
                 if ($LastExitCode) {
